@@ -1,7 +1,5 @@
 <template>
-  <div class="header">
-    wo s header
-  </div>
+  <div>i am ratings</div>
 </template>
 
 <script type="text/ecmascript-6">
