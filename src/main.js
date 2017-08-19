@@ -12,6 +12,7 @@ Vue.use(VueRouter)
 Vue.config.productionTip = false
 const routes = [
   { path: '/goods', component: goods },
+  {path: '/', component: goods },
   { path: '/ratings', component: ratings },
   { path: '/seller', component: seller }
 ]
@@ -20,7 +21,7 @@ const routes = [
 const router = new VueRouter({
   routes // （缩写）相当于 routes: routes
 })
-router.go('/ratings')
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
