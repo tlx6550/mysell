@@ -29,7 +29,7 @@ var goods = appData.goods;
 var ratings = appData.ratings;
 var apiRoutes = express.Router();
 //定义路由api
-apiRoutes.get('/ratings',function (req,res) {
+apiRoutes.get('/seller',function (req,res) {
   res.json({
     errno:0,
     data:seller
