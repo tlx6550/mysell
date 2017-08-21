@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
+import VueResource from  'vue-resource'
 // 在webpack.base.conf.js已经配置了别名 所以可以直接引人components目录下的东西
 import goods from  'components/goods/goods'
 import seller from  'components/seller/seller'
@@ -10,6 +11,7 @@ import ratings from  'components/ratings/ratings'
 
 import 'common/stylus/index.styl'
 Vue.use(VueRouter)
+Vue.use(VueResource)
 
 Vue.config.productionTip = false
 const routes = [
