@@ -8,7 +8,7 @@
            </div>
          </div>
          <div class="price">0元</div>
-         <div class="desc">另需配送费￥{{deliverPrice}}元</div>
+         <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
        </div>
        <div class="content-right"></div>
      </div>
@@ -116,4 +116,43 @@ export default {
           &.enough
             background: #00b43c
             color: #fff
+    .ball-container
+      .ball
+        position: fixed
+        left: 32px
+        bottom: 22px
+        z-index: 200
+        &.drop-transition
+          transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41)
+          .inner
+            width: 16px
+            height: 16px
+            border-radius: 50%
+            background: rgb(0, 160, 220)
+            transition: all 0.4s linear
+    .shopcart-list
+      position: absolute
+      left: 0
+      top: 0
+      z-index: -1
+      width: 100%
+      &.fold-transition
+        transition: all 0.5s
+        transform: translate3d(0, -100%, 0)
+      &.fold-enter, &.fold-leave
+        transform: translate3d(0, 0, 0)
+      .list-header
+        height: 40px
+        line-height: 40px
+        padding: 0 18px
+        background: #f3f5f7
+        border-bottom: 1px solid rgba(7, 17, 27, 0.1)
+        .title
+          float: left
+          font-size: 14px
+          color: rgb(7, 17, 27)
+        .empty
+          float: right
+          font-size: 12px
+          color: rgb(0, 160, 220)
 </style>
