@@ -18,7 +18,7 @@
 <script type="text/ecmascript-6">
 export default {
   props:{
-    deliverPrice:{
+    deliveryPrice:{
       type:Number
       ,default:0
     }
