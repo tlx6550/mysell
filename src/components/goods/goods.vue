@@ -9,7 +9,7 @@
           </li>
         </ul>
       </div>
-    <div class="foods-wrapper" ref="foodsWrapper">
+     <div class="foods-wrapper" ref="foodsWrapper">
       <ul>
         <li v-for="item in goods" class="food-list"  ref="foodList">
           <h1 class="title">{{item.name}}</h1>
@@ -35,6 +35,7 @@
         </li>
       </ul>
     </div>
+     <shopcart :delivery-price="seller.deliverPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -43,6 +44,7 @@
   将回调延迟到下次 DOM 更新循环之后执行。在修改数据之后立即使用它，然后等待 DOM 更新*/
   const  ERR_OK = 0;
   import BScroll from 'better-scroll'
+  import shopcart from 'components/shopcart/shopcart'
 export default {
   props:{
     seller:{
@@ -112,6 +114,9 @@ export default {
      let el = foodList[index];
      this.foodsWrapper.scrollToElement(el, 300);
     }
+  }
+  ,components:{
+    shopcart
   }
 }
 </script>
