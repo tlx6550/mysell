@@ -20,8 +20,8 @@
       }
     },
     methods: {
-      addCart(event) {
-        if (!event._constructed) {
+      addCart(e) {
+        if (!e._constructed) {
           return;
         }
         if (!this.food.count) {
@@ -29,7 +29,12 @@
         } else {
           this.food.count++;
         }
-        /*this.$dispatch('cart.add', event.target);*/
+        let target = e.target;
+        let tagName = target.tagName.toLowerCase();
+        if(tagName === 'i'){
+          target = target.parentNode;
+        }
+        this.$emit('addToCart',target);
       },
       decreaseCart(event) {
         if (!event._constructed) {

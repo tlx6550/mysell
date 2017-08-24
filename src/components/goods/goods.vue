@@ -99,7 +99,10 @@ export default {
     });
   }
   ,methods:{
-    _initScroll(){
+    _drop(target){
+      console.log('target='+target)
+    }
+    ,_initScroll(){
       this.menuWrapper = new BScroll(this.$refs.menuWrapper,{
         click:true
       });
@@ -134,6 +137,11 @@ export default {
   ,components:{
     shopcart
     ,cartcontrol
+  }
+  ,events: {
+    'addToCart'(target) {
+      this._drop(target);
+    }
   }
 }
 </script>
