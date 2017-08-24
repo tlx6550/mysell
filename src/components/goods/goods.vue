@@ -29,13 +29,16 @@
                   <span class="now">￥{{food.price}}</span>
                   <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
-    <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+    <shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -45,6 +48,7 @@
   const  ERR_OK = 0;
   import BScroll from 'better-scroll'
   import shopcart from 'components/shopcart/shopcart'
+  import cartcontrol from 'components/cartcontrol/cartcontrol'
 export default {
   props:{
     seller:{
@@ -69,6 +73,18 @@ export default {
       }
       return 0;
     }
+    ,selectFoods(){
+      console.log(this.goods)
+      /*let foods = [];
+      this.goods.forEach((good)=>{
+        good.forEach((food)=>{
+          if(food.count){
+            foods.push(food)
+          }
+        })
+      })
+      return foods;*/
+    }
   }
   ,created(){
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
@@ -89,6 +105,7 @@ export default {
         click:true
       });
       this.foodsWrapper = new BScroll(this.$refs.foodsWrapper,{
+        click:true,
         probeType:3
       });
       this.foodsWrapper.on('scroll',(pos) =>{
@@ -117,6 +134,7 @@ export default {
   }
   ,components:{
     shopcart
+    ,cartcontrol
   }
 }
 </script>
