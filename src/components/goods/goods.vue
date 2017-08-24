@@ -73,17 +73,16 @@ export default {
       }
       return 0;
     }
-    ,selectFoods(){
-      console.log(this.goods)
-      /*let foods = [];
-      this.goods.forEach((good)=>{
-        good.forEach((food)=>{
-          if(food.count){
-            foods.push(food)
+    , selectFoods() {
+      let foods = [];
+      this.goods.forEach((good) => {
+        good.foods.forEach((food) => {
+          if (food.count) {
+            foods.push(food);
           }
-        })
-      })
-      return foods;*/
+        });
+      });
+      return foods;
     }
   }
   ,created(){
