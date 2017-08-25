@@ -122,6 +122,8 @@ export default {
         let inner = el.querySelector('.inner-hook');
         inner.style.webkitTransform = 'translate3d(0,0,0)';
         inner.style.transform = 'translate3d(0,0,0)';
+        //当仅使用 JavaScript 式过渡的时候， 在 enter 和 leave 钩子函数中，必须有 done 回调函数。
+        // 否则，这两个钩子函数会被同步调用，过渡会立即完成。
         el.addEventListener('transitionend', () => {
           done();
         });
