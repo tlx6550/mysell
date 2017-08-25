@@ -30,7 +30,8 @@
                   <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <!--@是v-on缩写，在子组件上监听自定义事件-->
+                  <cartcontrol :food="food" @addToCart="handleAddToCart"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -38,7 +39,7 @@
         </li>
       </ul>
     </div>
-    <shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+    <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -133,15 +134,21 @@ export default {
      let el = foodList[index];
      this.foodsWrapper.scrollToElement(el, 300);
     }
+    ,_drop(el){
+      /*调用子组件drop方法*/
+      // 让动画晚一点执行，避免出现卡顿,体验优化，异步执行下落动画
+      setTimeout(() => {
+        this.$refs.shopcart.drop(el);
+      }, 20);
+      /*this.$refs.shopcart.drop(el);*/
+    }
+    ,handleAddToCart(el) {
+      this._drop(el);
+    }
   }
   ,components:{
     shopcart
     ,cartcontrol
-  }
-  ,events: {
-    'addToCart'(target) {
-      this._drop(target);
-    }
   }
 }
 </script>

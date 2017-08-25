@@ -17,6 +17,17 @@
          </div>
        </div>
      </div>
+     <div class="ball-container">
+       <ul>
+         <li v-for="(ball,index) in balls" :key="index">
+           <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop">
+             <div class="ball" v-show="ball.show" :css="false">
+               <div class="inner inner-hook"></div>
+             </div>
+           </transition>
+         </li>
+       </ul>
+     </div>
    </div>
 </template>
 
@@ -42,6 +53,88 @@ export default {
     ,minPrice:{
       type:Number
       ,default:0
+    }
+  }
+  ,data(){
+    return{
+      balls:[
+        {
+          show:false
+        },
+        {
+          show:false
+        },
+        {
+          show:false
+        },
+        {
+          show:false
+        },
+        {
+          show:false
+        }
+      ]
+      ,dropBalls:[]
+    }
+  }
+  ,methods:{
+    drop(el) {
+      // 拿到第一个还未开始动画的小球令其开始进行下落动画
+      for (let i = 0; i < this.balls.length; i++) {
+        let ball = this.balls[i];
+        if (!ball.show) {
+          ball.show = true;
+          let divObject = el;
+          ball.divObject = divObject;
+          this.dropBalls.push(ball);
+          return;
+        }
+      }
+    }
+    ,beforeDrop(el) {
+      //这里el(类为ball的div)默认就是绑定该函数钩子的元素，区别于drop方法里面的el(为触发‘加’事件按钮元素)
+      // 要把所有设置为true的小球都找出来做动画，因为可能用户会连续点击
+      let count = this.balls.length;
+      while (count--) {
+        let ball = this.balls[count];
+        if (ball.show) {
+          //rect拿到点击按钮的位置信息,ball.divObject为触发‘加’事件按钮元素
+          let rect = ball.divObject.getBoundingClientRect();
+          // 减去小球本身已经已经定义的css偏移量
+          let x = rect.left - 32;
+          let y = -(window.innerHeight - rect.top - 22);
+          el.style.display = '';
+          // 外层元素完成纵向动画，内层元素完成横向动画
+          el.style.webkitTransform = `translate3d(0,${y}px,0)`;
+          el.style.transform = `translate3d(0,${y}px,0)`;
+          let inner = el.querySelector('.inner-hook');
+          inner.style.webkitTransform = `translate3d(${x}px,0,0)`;
+          inner.style.transform = `translate3d(${x}px,0,0)`;
+        }
+      }
+    }
+    ,dropping(el, done) {
+      /* eslint-disable no-unused-vars */
+      let rf = el.offsetHeight;
+      this.$nextTick(() => {
+        el.style.webkitTransform = 'translate3d(0,0,0)';
+        el.style.transform = 'translate3d(0,0,0)';
+        let inner = el.querySelector('.inner-hook');
+        inner.style.webkitTransform = 'translate3d(0,0,0)';
+        inner.style.transform = 'translate3d(0,0,0)';
+        el.addEventListener('transitionend', () => {
+          done();
+        });
+      });
+    }
+    ,afterDrop(el) {
+      // 每完成一个小球的动画就把这个小球的状态重置
+      //shift() 方法用于把数组的第一个元素从其中删除，并返回第一个元素的值。
+      let ball = this.dropBalls.shift();
+      if (ball) {
+        el.style.display = 'none';
+        ball.show = false;
+      }
     }
   }
   ,computed:{
@@ -168,41 +261,15 @@ export default {
             color: #fff
     .ball-container
       .ball
-        position: fixed
+        position: absolute
         left: 32px
         bottom: 22px
-        z-index: 200
-        &.drop-transition
-          transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41)
-          .inner
-            width: 16px
-            height: 16px
-            border-radius: 50%
-            background: rgb(0, 160, 220)
-            transition: all 0.4s linear
-    .shopcart-list
-      position: absolute
-      left: 0
-      top: 0
-      z-index: -1
-      width: 100%
-      &.fold-transition
-        transition: all 0.5s
-        transform: translate3d(0, -100%, 0)
-      &.fold-enter, &.fold-leave
-        transform: translate3d(0, 0, 0)
-      .list-header
-        height: 40px
-        line-height: 40px
-        padding: 0 18px
-        background: #f3f5f7
-        border-bottom: 1px solid rgba(7, 17, 27, 0.1)
-        .title
-          float: left
-          font-size: 14px
-          color: rgb(7, 17, 27)
-        .empty
-          float: right
-          font-size: 12px
-          color: rgb(0, 160, 220)
+        z-index: -1
+        transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41)
+        .inner
+          width: 16px
+          height: 16px
+          border-radius: 50%
+          background: rgb(0, 160, 220)
+          transition: all 0.4s linear
 </style>
