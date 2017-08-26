@@ -39,7 +39,7 @@
         </li>
       </ul>
     </div>
-    <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+    <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcart>
   </div>
 </template>
 
@@ -100,10 +100,7 @@ export default {
     });
   }
   ,methods:{
-    _drop(target){
-      console.log('target='+target)
-    }
-    ,_initScroll(){
+      _initScroll(){
       this.menuWrapper = new BScroll(this.$refs.menuWrapper,{
         click:true
       });

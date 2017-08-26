@@ -61,7 +61,7 @@
         line-height: 24px
         font-size: 24px
         color: rgb(0, 160, 220)
-      &.move-enter-to
+      &.move-enter-active,&.move-leave
         opacity: 1
         transform: translate3d(0, 0, 0)
         .inner
@@ -69,9 +69,9 @@
           line-height: 24px
           font-size: 24px
           color: rgb(0, 160, 220)
-          transition: all 0.4s linear
+          transition: all 10.5s linear
           transform: rotate(0)
-      &.move-enter, &.move-leave-to
+      &.move-enter, &.move-leave-active
         opacity: 0
         transform: translate3d(24px, 0, 0)
         .inner
