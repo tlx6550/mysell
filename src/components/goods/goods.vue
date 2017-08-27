@@ -14,7 +14,7 @@
         <li v-for="item in goods" class="food-list"  ref="foodList">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li v-for="food in item.foods" class="food-item border-1px">
+            <li @click="selectFood(food,$event)" v-for="food in item.foods" class="food-item border-1px">
               <div class="icon">
                 <img width="57" height="57" :src="food.icon" >
               </div>
@@ -39,7 +39,8 @@
         </li>
       </ul>
     </div>
-    <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcart>
+    <shopcart @addToCart="handleAddToCart" ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shopcart>
+    <food @addToCart="handleAddToCart" :food="selectedFood" ref="food"></food>
   </div>
 </template>
 
@@ -50,6 +51,7 @@
   import BScroll from 'better-scroll'
   import shopcart from 'components/shopcart/shopcart'
   import cartcontrol from 'components/cartcontrol/cartcontrol'
+  import food from 'components/food/food'
 export default {
   props:{
     seller:{
@@ -61,6 +63,7 @@ export default {
       goods:[]
       ,listHeight:[]
       ,scrolly:0
+      ,selectedFood:{}
     }
   }
   ,computed:{
@@ -131,6 +134,13 @@ export default {
      let el = foodList[index];
      this.foodsWrapper.scrollToElement(el, 300);
     }
+    ,selectFood(food,event){
+      if(!event._constructed){
+        return;
+      }
+      this.selectedFood = food;
+      this.$refs.food.show();
+    }
     ,_drop(el){
       /*调用子组件drop方法*/
       // 让动画晚一点执行，避免出现卡顿,体验优化，异步执行下落动画
@@ -146,6 +156,7 @@ export default {
   ,components:{
     shopcart
     ,cartcontrol
+    ,food
   }
 }
 </script>

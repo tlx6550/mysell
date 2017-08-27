@@ -43,7 +43,7 @@
                  <span>￥{{food.price*food.count}}</span>
                </div>
                <div class="cartcontrol-wrapper">
-                 <cartcontrol :food="food"></cartcontrol>
+                 <cartcontrol :food="food" @addToCart="_drop"></cartcontrol>
                </div>
              </li>
            </ul>
@@ -112,7 +112,6 @@ export default {
       // 拿到第一个还未开始动画的小球令其开始进行下落动画
       for (let i = 0; i < this.balls.length; i++) {
         let ball = this.balls[i];
-        console.log(1)
         if (!ball.show) {
           ball.show = true;
           let divObject = el;
@@ -189,6 +188,10 @@ export default {
         }
         window.alert(`支付${this.totalPrice}元`);
       }
+    ,_drop(el){
+    /* 向父组件派发事件*/
+    this.$emit('addToCart',el)
+  }
     }
   ,computed:{
     totalPrice(){
