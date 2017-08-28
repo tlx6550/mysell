@@ -46,6 +46,7 @@
 
 <script type="text/ecmascript-6">
 /*  vm.$nextTick( [callback] )
+https://segmentfault.com/a/1190000008570874
   将回调延迟到下次 DOM 更新循环之后执行。在修改数据之后立即使用它，然后等待 DOM 更新*/
   const  ERR_OK = 0;
   import BScroll from 'better-scroll'
