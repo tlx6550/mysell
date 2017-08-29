@@ -1,4 +1,5 @@
 export function saveToLocal(id, key, value) {
+  /*{"123456":{"favorite":true}}*/
 	let seller = window.localStorage.__seller__;
 	if (!seller) {
 		seller = {};
@@ -14,6 +15,7 @@ export function saveToLocal(id, key, value) {
 };
 
 export function loadFromLocal(id, key, def) {
+  /*{"123456":{"favorite":true}}*/
 	let seller = window.localStorage.__seller__;
 	if (!seller) {
 		return def;

@@ -12,8 +12,12 @@
         <router-link to="/seller">商 家</router-link>
       </div>
     </div>
-    <!-- 路由匹配到的组件将渲染在这里 -->
-    <router-view :seller="seller"></router-view>
+    <!--包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们-->
+    <keep-alive>
+      <!-- 路由匹配到的组件将渲染在这里 -->
+      <router-view :seller="seller"></router-view>
+    </keep-alive>
+
   </div>
 </template>
 
