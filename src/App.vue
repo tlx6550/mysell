@@ -19,18 +19,27 @@
 
 <script type="text/ecmascript-6">
   import header from 'components/header/header.vue';
+  import {urlParse} from 'common/js/util';
   const  ERR_OK = 0;
   export  default {
     data() {
       return {
-        seller:{}
+        seller:{
+          //获取商家id
+          id:(()=>{
+            let queryParam = urlParse();
+            console.log(' queryParam.id='+ queryParam.id)
+            return queryParam.id;
+          })()
+        }
       }
     },
     created(){
-      this.$http.get('/api/seller').then((response)=>{
+      this.$http.get('/api/seller?id='+ this.seller.id).then((response)=>{
         response = response.body;
         if (response.errno === ERR_OK){
-          this.seller = response.data;
+          //扩展seller,添加商家id
+          this.seller = Object.assign({}, this.seller, response.data);
         }
       });
     },
