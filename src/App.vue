@@ -3,13 +3,13 @@
     <v-header :seller="seller"></v-header>
     <div class="tab border-1px">
       <div class="tab-item">
-        <router-link to="/goods">商1 品</router-link>
+        <router-link to="/goods">商 品</router-link>
       </div>
       <div class="tab-item">
         <router-link to="/ratings">评 论</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/seller">商家2</router-link>
+        <router-link to="/seller">商 家</router-link>
       </div>
     </div>
     <!-- 路由匹配到的组件将渲染在这里 -->
